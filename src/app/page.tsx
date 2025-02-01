@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <>Hello, Next.js!
+    <>깃허브액션 테스트
     </>
   );
 }
