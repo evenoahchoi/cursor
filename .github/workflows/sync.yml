@@ -26,8 +26,8 @@ jobs:
         script: |
           export PATH=$PATH:/usr/local/bin
           cd /volume1/docker/nextjs15/eventlog
-          git pull origin main
+          git pull origin master
           npm install
           npm run build
-          
+
           docker restart eventlog
