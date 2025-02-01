@@ -26,7 +26,13 @@ jobs:
           script: |
             export PATH=$PATH:/usr/local/bin
             cd /volume1/docker/nextjs15/eventlog
+
+            # SSH 방식으로 GitHub에 접근
+            git remote set-url origin git@github.com:evenoahchoi/eventlog.git
+
+            # master 브런치의 최신 코드 가져오기 
             git pull origin master
+
             npm install
             npm run build
 
