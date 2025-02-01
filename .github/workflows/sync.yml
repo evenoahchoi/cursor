@@ -1,0 +1,34 @@
+name: Sync to Synology NAS
+
+on:
+  push:
+    branches:
+      - main  # 'main' 브랜치에 푸시될 때마다 실행
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set Git safe directory
+      run: git config --global --add safe.directory /volume1/docker/nextjs15/eventlog
+
+    - name: Sync with Synology NAS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EXTERNAL_IP }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 2222  # 외부에서 접속할 포트
+        script: |
+          export PATH=$PATH:/usr/local/bin
+          cd /volume1/docker/nextjs15/eventlog
+          npm cache clean --force
+          docker builder prune --force
+          git pull origin main
+          npm install
+          npm run build
+          docker restart eventlog
