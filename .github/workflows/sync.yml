@@ -15,6 +15,9 @@ jobs:
       - name: Set Git safe directory
         run: git config --global --add safe.directory /volume1/docker/nextjs15/eventlog
 
+      - name: Debug SSH Key  # SSH 키가 정상적으로 전달되는지 확인
+        run: echo "${{ secrets.SSH_PRIVATE_KEY }}" | wc -l
+
       - name: Sync with Synology NAS
         uses: appleboy/ssh-action@master
         with:
@@ -26,6 +29,11 @@ jobs:
           script: |
             export PATH=$PATH:/usr/local/bin
             cd /volume1/docker/nextjs15/eventlog
+
+            # SSH 디버깅 추가 (현재 사용자가 누구인지 확인)
+            whoami
+            ls -la ~/.ssh  # SSH 키가 정상적으로 있는지 확인
+            echo "$SSH_AUTH_SOCK"
 
             # SSH 방식으로 GitHub에 접근
             git remote set-url origin git@github.com:evenoahchoi/eventlog.git
