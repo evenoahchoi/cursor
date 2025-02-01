@@ -26,9 +26,8 @@ jobs:
         script: |
           export PATH=$PATH:/usr/local/bin
           cd /volume1/docker/nextjs15/eventlog
-          npm cache clean --force
-          docker builder prune --force
           git pull origin main
           npm install
           npm run build
+          
           docker restart eventlog
