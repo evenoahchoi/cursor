@@ -3,7 +3,7 @@ name: Sync to Synology NAS
 on:
   push:
     branches:
-      - main  # 'main' 브랜치에 푸시될 때마다 실행
+      - master  # 'master' 브랜치에 푸시될 때마다 실행
 
 jobs:
   deploy:
@@ -26,8 +26,8 @@ jobs:
         script: |
           export PATH=$PATH:/usr/local/bin
           cd /volume1/docker/nextjs15/eventlog
-          git pull origin main
+          git pull origin master
           npm install
           npm run build
 
-          docker restart aura_git
+          docker restart eventlog
