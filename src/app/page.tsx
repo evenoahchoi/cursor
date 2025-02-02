@@ -15,16 +15,18 @@ export default async function Page() {
 
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    
-    // 서버에서 실행되는 fetch (SSR)
-    const res = await fetch(`${apiUrl}/api/mongodb`, {
-      cache: "no-store", // 항상 최신 데이터 가져오기
-    });
-
-    if (!res.ok) {
-      throw new Error("API 응답 오류");
+    if (!apiUrl) {
+      throw new Error("NEXT_PUBLIC_API_URL이 설정되지 않았습니다.");
     }
-
+    
+    const res = await fetch(`${apiUrl}/api/mongodb`, {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+      throw new Error(`API 응답 오류: ${res.status} ${res.statusText}`);
+    }
+  
     logs = await res.json();
   } catch (error) {
     errorMessage = (error as Error).message;
