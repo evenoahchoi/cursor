@@ -38,9 +38,7 @@ jobs:
             # SSH 방식으로 GitHub에 접근
             git remote set-url origin git@github.com:evenoahchoi/eventlog.git
 
-            # 로컬 변경 사항 강제 삭제 후 최신 코드 가져오기
-            git reset --hard HEAD
-            git pull origin master --force
+            git pull origin master
 
             npm install
             npm run build
