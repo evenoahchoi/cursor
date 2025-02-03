@@ -18,8 +18,7 @@ export default async function Page() {
     // ✅ 절대 URL 설정 (서버 환경 고려)
     const baseUrl =
       process.env.REAL_URL || // Vercel 배포 환경
-      process.env.NEXT_PUBLIC_BASE_URL || // 사용자 지정 환경 변수
-      "http://localhost:3000"; // 기본 로컬 개발 환경
+      process.env.NEXT_PUBLIC_BASE_URL // 사용자 지정 환경 변수
 
     const url = `${baseUrl}/api/mongodb`;
     console.log(`🔗 Fetching from: ${url}`);
