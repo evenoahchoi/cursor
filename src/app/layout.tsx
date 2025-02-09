@@ -1,3 +1,5 @@
+import SessionWrapper from "./components/sessionWrapper";
+
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -12,10 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
-      <body>
-        {children}
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="ko">
+        <body>{children}</body>
+      </html>
+    </SessionWrapper>
   );
 }
