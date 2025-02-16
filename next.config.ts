@@ -5,3 +5,15 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'developers.kakao.com',
+        pathname: '/tool/resource/static/img/button/login/full/ko/**',
+      },
+    ],
+  },
+};

@@ -8,30 +8,36 @@ const authOptions: NextAuthOptions = {
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
       profile(profile) {
         //카카오에서 유저 데이터 가져오는지 확인하는 코드
-        //console.log("🟢 카카오 프로필 데이터:", profile);
+        console.log("🟢 카카오 프로필 데이터:", profile);
         return {
           id: String(profile.id),
           name: profile.properties?.nickname || null, // 닉네임이 없을 경우 null 설정
           nickname: profile.properties?.nickname || null, // 닉네임이 없을 경우 null 설정
           email: profile.kakao_account?.email || null, // 이메일이 없을 경우 null 설정
+          gender: profile.kakao_account?.gender || null, // 이메일이 없을 경우 null 설정
+          birthyear: profile.kakao_account?.birthyear || null, // 이메일이 없을 경우 null 설정
         };
       },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session }) {
-      //카카오에서 유저 데이터 가져오는지 확인하는 코드
-      //console.log("🔴 session 콜백 호출됨 - 초기 세션 데이터:", session);
-      
-      if (session.user && session.user.email) {
-        // 세션 데이터 처리
-        return session;
-      } else {
-        console.error("세션 콜백 에러: user 객체 또는 email 속성이 없습니다.");
-        return session; // 또는 에러 처리 로직
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.gender = token.gender || null; // 성별 추가
+        session.user.birthyear = token.birthyear || null; // 출생 연도 추가
       }
-    }
+      console.log("🔴 세션 데이터:", session); // 디버깅용 로그
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.gender = user.gender; // 성별 저장
+        token.birthyear = user.birthyear; // 출생 연도 저장
+      }
+      console.log("🔵 JWT 토큰:", token); // 디버깅용 로그
+      return token;
+    },
   },
 };
 
