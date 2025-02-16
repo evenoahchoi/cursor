@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     const currentTime = new Date(); // 현재 시간
 
     const sampleData = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
       const eventType = eventTypes[Math.floor(Math.random() * eventTypes.length)];
       const relationship =
         relationships[Math.floor(Math.random() * relationships.length)];
