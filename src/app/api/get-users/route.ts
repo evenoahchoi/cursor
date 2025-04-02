@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
 
 const uri: string = process.env.MONGODB_URI || "";
-const dbName = "eventlog";
+const dbName = "mycon";
 const collectionName = "users";
 
 if (!uri) {

@@ -26,7 +26,8 @@ global._mongoClientPromise = clientPromise;
 // 데이터베이스 객체를 반환하는 함수
 const dbConnect = async (): Promise<Db> => {
   const clientInstance = await clientPromise;
-  return clientInstance.db('eventlog');  // 원하는 데이터베이스명을 명시적으로 설정
+  // 데이터베이스 인스턴스 반환
+  return clientInstance.db('mycon');  // 원하는 데이터베이스명을 명시적으로 설정
 };
 
 export default dbConnect;

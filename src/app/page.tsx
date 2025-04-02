@@ -1,74 +1,38 @@
+"use client";
+
 import React from "react";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
 
-interface Log {
-  _id: string;
-  page: string;
-  message: string;
-  timestamp: string;
-  user: string;
-  action: string;
-}
-
-export default async function Page() {
-  let logs: Log[] = [];
-  let errorMessage = "";
-  const logMessages: string[] = []; // API 요청 로그 저장
-
-  try {
-    // ✅ 절대 URL 설정 (서버 환경 고려)
-    const baseUrl =
-      process.env.REAL_URL || // Vercel 배포 환경
-      process.env.NEXT_PUBLIC_BASE_URL // 사용자 지정 환경 변수
-
-    const url = `${baseUrl}/api/mongodb`;
-    console.log(`🔗 Fetching from: ${url}`);
-    logMessages.push(`Fetching from: ${url}`);
-
-    const res = await fetch(url, {
-      cache: "no-store", // 항상 최신 데이터 가져오기
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(`API 응답 오류 (${res.status}): ${errorText}`);
-    }
-
-    logs = await res.json();
-    logMessages.push(`✅ API 데이터 로드 완료. 데이터 개수: ${logs.length}`);
-  } catch (error) {
-    errorMessage = (error as Error).message;
-    logMessages.push(`❌ 오류 발생: ${errorMessage}`);
-  }
+export default function LoginPage() {
+  const handleKakaoLogin = () => {
+    signIn("kakao", { callbackUrl: "/dashboard" });
+  };
 
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>샘플 데이터 목록</h1>
+    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-cyan-100 p-8">
+      <div className="w-full max-w-md bg-white p-10 rounded-2xl shadow-2xl text-center transform transition duration-300 hover:scale-105">
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">MyCon - 나만의 컨설턴트</h1>
+        <p className="text-gray-600 mb-8">효율적인 고객 및 업무 관리를 시작해보세요.</p>
 
-      {errorMessage ? (
-        <div style={{ color: "red" }}>데이터를 불러오는 중 오류 발생: {errorMessage}</div>
-      ) : logs.length > 0 ? (
-        logs.map((log) => (
-          <article key={log._id} style={{ marginBottom: "2rem" }}>
-            <h2>페이지: {log.page}</h2>
-            <p>{log.message}</p>
-            <p>사용자: {log.user}</p>
-            <p>액션: {log.action}</p>
-            <small>{new Date(log.timestamp).toLocaleString()}</small>
-          </article>
-        ))
-      ) : (
-        <p>표시할 데이터가 없습니다.</p>
-      )}
+        <div
+          onClick={handleKakaoLogin}
+          className="w-full flex justify-center cursor-pointer"
+        >
+          <Image
+            src="/kakao_login_medium_wide.png"
+            alt="카카오 로그인"
+            width={222}
+            height={49}
+            priority
+            className="transition duration-300 transform hover:scale-110 hover:opacity-90"
+          />
+        </div>
+      </div>
 
-      {/* 🛠 API 요청 로그 출력 */}
-      <section style={{ marginTop: "2rem", padding: "1rem", background: "#f4f4f4", borderRadius: "5px" }}>
-        <h2>📜 API 요청 로그</h2>
-        <ul style={{ fontSize: "0.9rem", listStyleType: "none", padding: 0 }}>
-          {logMessages.map((log, index) => (
-            <li key={index} style={{ marginBottom: "0.5rem" }}>🔹 {log}</li>
-          ))}
-        </ul>
-      </section>
+      <footer className="absolute bottom-4 text-center w-full text-gray-500 text-sm">
+        © {new Date().getFullYear()} 비구르미n. All rights reserved.
+      </footer>
     </main>
   );
 }

@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
 
 const uri: string = process.env.MONGODB_URI || "";
-const dbName = "eventlog";
-const collectionName = "records"; // 새로운 컬렉션 이름
+const dbName = "mycon";
+const collectionName = "events"; // 저장할 컬렉션 이름
 
 if (!uri) {
   throw new Error("⚠️ MONGODB_URI 환경 변수가 설정되지 않았습니다.");
