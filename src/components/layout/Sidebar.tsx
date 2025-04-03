@@ -19,9 +19,9 @@ const menuItems = [
   { href: '/dashboard', label: '대시보드', icon: HomeIcon },
   { href: '/dashboard/bookings', label: '예약 관리', icon: CalendarDaysIcon },
   { href: '/dashboard/customers', label: '고객 관리', icon: UsersIcon },
-  { href: '/dashboard/services', label: '서비스 관리', icon: ClipboardDocumentListIcon },
+  { href: '/dashboard/servicesmanage', label: '서비스 관리', icon: ClipboardDocumentListIcon },
   { href: '/dashboard/analytics', label: '수익 분석', icon: ChartBarIcon },
-  { href: '/dashboard/messages', label: '메시지 센터', icon: ChatBubbleLeftEllipsisIcon },
+  { href: '/dashboard/messagescenter', label: '메시지 센터', icon: ChatBubbleLeftEllipsisIcon },
   { href: '/dashboard/marketing', label: '마케팅 도구', icon: MegaphoneIcon },
   { href: '/dashboard/support', label: '도움말/지원', icon: QuestionMarkCircleIcon },
 ];

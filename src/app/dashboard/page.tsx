@@ -164,7 +164,7 @@ export default function DashboardPage() {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `${(value / 10000).toLocaleString()}만원`} />
+                <Tooltip formatter={(value) => `${(Number(value) / 10000).toLocaleString()}만원`} />
               </PieChart>
             </ResponsiveContainer>
           </div>
