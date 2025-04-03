@@ -1,31 +1,105 @@
 /** @type {import('tailwindcss').Config} */
+import animatePlugin from 'tailwindcss-animate'; // import 구문 사용
+
 module.exports = {
+  darkMode: ["class"], // shadcn 다크 모드 지원
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}', // src 디렉토리 포함
   ],
+  prefix: "", // shadcn 기본 prefix 없음
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'], // 기본 폰트를 Inter로 설정
-      },
-      colors: {
-        primary: '#4A90E2',   // 기본 블루
-        secondary: '#7ED321', // 보조 그린
-        danger: '#D0021B',    // 보조 레드
-        background: '#F4F6F8', // 배경 라이트 그레이
-        'text-primary': '#333333', // 텍스트 다크 그레이
-        'text-secondary': '#888888', // 텍스트 서브 그레이
-      },
-      boxShadow: {
-        'card': '0 4px 12px rgba(0, 0, 0, 0.1)', // 카드 그림자 효과
-      },
-      borderRadius: {
-        'card': '12px', // 카드 모서리
-        'button': '8px', // 버튼 모서리
-      }
-    },
+  	container: {
+  		center: true,
+  		padding: '2rem',
+  		screens: {
+  			'2xl': '1400px'
+  		}
+  	},
+  	extend: {
+  		fontFamily: {
+  			sans: ['Pretendard', 'sans-serif'],
+  		},
+  		colors: {
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			background: 'hsl(var(--background))',
+  			foreground: 'hsl(var(--foreground))',
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			danger: '#D0021B',
+  			'text-primary': '#333333',
+  			'text-secondary': '#888888',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)',
+  			card: '12px',
+  			button: '8px'
+  		},
+  		boxShadow: {
+  			card: '0 4px 12px rgba(0, 0, 0, 0.1)'
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		}
+  	}
   },
-  plugins: [],
+  plugins: [animatePlugin], // 중복된 require 제거
 }; 

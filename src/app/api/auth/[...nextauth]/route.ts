@@ -6,16 +6,16 @@ const authOptions: NextAuthOptions = {
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
-      profile(profile) {
-        //카카오에서 유저 데이터 가져오는지 확인하는 코드
-        console.log("🟢 카카오 프로필 데이터:", profile);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      profile(profile: any) {
         return {
           id: String(profile.id),
-          name: profile.properties?.nickname || null, // 닉네임이 없을 경우 null 설정
-          nickname: profile.properties?.nickname || null, // 닉네임이 없을 경우 null 설정
-          email: profile.kakao_account?.email || null, // 이메일이 없을 경우 null 설정
-          gender: profile.kakao_account?.gender || null, // 이메일이 없을 경우 null 설정
-          birthyear: profile.kakao_account?.birthyear || null, // 이메일이 없을 경우 null 설정
+          name: profile.properties?.nickname || null,
+          nickname: profile.properties?.nickname || null,
+          email: profile.kakao_account?.email || null,
+          gender: profile.kakao_account?.gender || null,
+          birthyear: profile.kakao_account?.birthyear || null,
+          image: profile.properties?.profile_image || profile.properties?.thumbnail_image || null,
         };
       },
     }),
@@ -24,18 +24,23 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (session.user) {
-        session.user.gender = token.gender || null; // 성별 추가
-        session.user.birthyear = token.birthyear || null; // 출생 연도 추가
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (session.user as any).gender = token.gender || null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (session.user as any).birthyear = token.birthyear || null;
+        session.user.image = token.picture || null;
       }
-      console.log("🔴 세션 데이터:", session); // 디버깅용 로그
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
-        token.gender = user.gender; // 성별 저장
-        token.birthyear = user.birthyear; // 출생 연도 저장
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        token.gender = (user as any).gender;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        token.birthyear = (user as any).birthyear;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        token.picture = (user as any).image;
       }
-      console.log("🔵 JWT 토큰:", token); // 디버깅용 로그
       return token;
     },
   },

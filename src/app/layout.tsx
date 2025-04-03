@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google"; // Inter 폰트 제거
 import "./globals.css";
 import SessionWrapper from "./components/sessionWrapper";
 
-const inter = Inter({ subsets: ["latin"], display: 'swap' });
+// const inter = Inter({ subsets: ["latin"], display: 'swap' }); // Inter 폰트 로드 제거
 
 export const metadata: Metadata = {
   title: "MyCon - 나만의 컨설턴트",
@@ -18,7 +18,17 @@ export default function RootLayout({
   return (
     <SessionWrapper>
       <html lang="ko">
-        <body className={`${inter.className} bg-background text-text-primary`}>
+        {/* Pretendard 폰트 CDN 링크 추가 */}
+        <head>
+          <link
+            rel="stylesheet"
+            as="style"
+            crossOrigin="anonymous"
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+          />
+        </head>
+        {/* body 폰트 클래스에서 inter.className 제거 */}
+        <body className={`bg-background text-text-primary`}>
           {children}
         </body>
       </html>

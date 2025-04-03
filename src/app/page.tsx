@@ -10,28 +10,33 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-cyan-100 p-8">
-      <div className="w-full max-w-md bg-white p-10 rounded-2xl shadow-2xl text-center transform transition duration-300 hover:scale-105">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">MyCon - 나만의 컨설턴트</h1>
-        <p className="text-gray-600 mb-8">효율적인 고객 및 업무 관리를 시작해보세요.</p>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-4 sm:p-8">
+      <div className="text-center max-w-md w-full bg-white p-8 sm:p-10 rounded-xl shadow-lg">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
+          MyCon - 나만의 컨설턴트
+        </h1>
+        <p className="text-gray-600 mb-8">
+          효율적인 고객 및 업무 관리를 시작해보세요.
+        </p>
 
-        <div
+        <button
           onClick={handleKakaoLogin}
-          className="w-full flex justify-center cursor-pointer"
+          className="w-full flex justify-center focus:outline-none rounded-md transform transition-transform duration-150 ease-in-out hover:scale-105 active:scale-95"
         >
           <Image
-            src="/kakao_login_medium_wide.png"
+            src="/kakao_login_large_narrow.png"
             alt="카카오 로그인"
-            width={222}
-            height={49}
+            width={200}
+            height={50}
             priority
-            className="transition duration-300 transform hover:scale-110 hover:opacity-90"
+            className=""
           />
-        </div>
+        </button>
+
       </div>
 
       <footer className="absolute bottom-4 text-center w-full text-gray-500 text-sm">
-        © {new Date().getFullYear()} 비구르미n. All rights reserved.
+        © {new Date().getFullYear()} MyCon. All rights reserved.
       </footer>
     </main>
   );
